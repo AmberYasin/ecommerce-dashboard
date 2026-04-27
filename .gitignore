@@ -7,3 +7,7 @@ __pycache__/
 .DS_Store
 =======
 >>>>>>> origin/arafuci
+.tmp_dagster_home_*/
+check_*.py
+load_*.py
+pipeline/write_assets.py
