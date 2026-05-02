@@ -1,5 +1,5 @@
 # E-Commerce Customer Behaviour & Sales Intelligence Dashboard
-**NCI MSc Data Analytics — Semester 2, 2025/26**
+**NCI MSc Data Analytics
 
 **Team:**
 - Amber — Member 3 — Criteo Attribution Dataset
@@ -62,17 +62,14 @@ In the Jupyter browser tab that opens:
 3. Confirm the output shows row counts for all four tables (`amazon_clean`, `amazon_rfm`, `uci_clean`, `criteo_clean`)
 4. Close the Jupyter tab
 
-### 5. Run the Dagster ETL pipeline
-**Same on all platforms:**
+### 5. (Optional) Review the Dagster ETL orchestration
 
-dagster dev -f pipeline/definitions.py
+The dashboard does NOT depend on Dagster materialization — PostgreSQL is fully populated by the verification notebook in step 4 and the dashboard reads directly from those tables. This step is for reviewing the orchestration architecture only.
 
-1. Open http://localhost:3000 in your browser
-2. Click the "Assets" tab
-3. Select all 10 assets
-4. Click "Materialize all"
-5. Wait until all 10 assets show green status
-6. Stop Dagster (Ctrl+C in terminal) once complete
+To explore the Dagster pipeline:
+Open http://localhost:3000 and click "View lineage" to see the asset dependency graph. The pipeline implements raw → clean → postgres flows for all three datasets (Amazon, UCI, Criteo) under unified Dagster orchestration.
+
+When done reviewing, stop Dagster with Ctrl+C in the terminal.
 
 ### 6. Launch the dashboard
 **Mac / Linux:**
@@ -142,7 +139,7 @@ Raw Data → MongoDB (raw storage)
 - The four cleaned CSV files are committed directly to the repo so the dashboard can be evaluated immediately after step 4 without needing the original raw data.
 - The full ingestion pipeline from raw data is documented in the `m*_ingestion.ipynb` notebooks for methodology review.
 - Estimated time from `git clone` to running dashboard on a fresh machine: 10–15 minutes.
-
+- The Dagster pipeline (`pipeline/`) provides the orchestration architecture and is viewable in the Dagster UI. The verification notebook in step 4 is the fast path for loading pre-validated cleaned data into PostgreSQL, which the dashboard reads from directly.
 ---
 
 ## Troubleshooting
