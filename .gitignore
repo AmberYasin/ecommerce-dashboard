@@ -1,13 +1,21 @@
+# Data
 data/raw/
+
+# Python
 venv/
-.ipynb_checkpoints/
 __pycache__/
+*.pyc
+
+# Jupyter
 .ipynb_checkpoints/
-<<<<<<< HEAD
-.DS_Store
-=======
->>>>>>> origin/arafuci
+
+# Dagster
 .tmp_dagster_home_*/
+
+# macOS
+.DS_Store
+
+# Dev scratch files
 check_*.py
 load_*.py
 pipeline/write_assets.py
