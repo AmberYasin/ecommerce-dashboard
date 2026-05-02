@@ -154,7 +154,25 @@ Another process is using the port. Mac/Linux: `lsof -i :PORT`. Windows: `netstat
 Confirm the virtual environment is activated (you should see `(venv)` in your terminal prompt). If missing, re-run the activation command from step 2.
 
 **Dagster assets fail to materialize**
-Confirm step 4 completed successfully — Dagster reads from PostgreSQL tables that the verification notebook creates.
+Step 5 (Dagster) is optional — the dashboard does not depend on Dagster materialization. The verification notebook in step 4 is the authoritative loading path. If you want to review the Dagster asset graph, open http://localhost:3000 after running dagster dev -f pipeline/definitions.py and use "View lineage" to inspect the architecture.
 
 **Dashboard shows "no data" or errors**
-Confirm both step 4 (verification notebook) and step 5 (Dagster materialization) completed before launching the dashboard.
+Confirm step 4 (verification notebook) completed successfully — it loads the four cleaned CSVs into PostgreSQL, which the dashboard reads from directly. The dashboard requires those four tables (amazon_clean, amazon_rfm, uci_clean, criteo_clean) to be populated before launching.
+
+**Windows: `pip install --upgrade pip` fails with "ERROR: To modify pip..."**
+Use `python -m pip install --upgrade pip` instead. The shorter `pip install --upgrade pip` cannot upgrade pip on itself on Windows; the explicit `python -m` form works on both Mac and Windows.
+
+**Windows: `Docker Desktop installation fails with "For security reasons C:\ProgramData\DockerDesktop must be owned by an elevated account"`**
+A previous Docker install left an orphaned folder. Open an elevated cmd (right-click → Run as administrator) and run:
+
+takeown /F "C:\ProgramData\DockerDesktop" /R /D Y
+icacls "C:\ProgramData\DockerDesktop" /grant administrators:F /T
+rmdir /s /q "C:\ProgramData\DockerDesktop"
+
+Then re-run the Docker installer.
+
+**Windows: Browser doesn't auto-open when launching Jupyter or Streamlit**
+Some Windows configurations don't auto-launch a browser. Copy the http://localhost:8501/ URL printed in the terminal and paste it manually into your browser.
+
+**Script worked once, broken on second run**
+Reset everything and start clean. Mac/Linux: docker-compose down -v and rm -rf venv. Windows: docker-compose down -v and rmdir /s /q venv. Then restart from step 2 of the setup.
