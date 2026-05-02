@@ -23,7 +23,7 @@ CHARTS = 'charts'
 def show_html_chart(filename, height=500):
     path = os.path.join(CHARTS, filename)
     if os.path.exists(path):
-        with open(path, 'r') as f:
+        with open(path, 'r', encoding='utf-8') as f:
             html = f.read()
         st.components.v1.html(html, height=height, scrolling=True)
     else:
