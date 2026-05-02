@@ -38,7 +38,6 @@ def show_png_chart(filename):
 
 st.sidebar.title('📊 E-Commerce Dashboard')
 st.sidebar.markdown('**NCI MSc Data Analytics**')
-st.sidebar.markdown('Semester 2, 2025/26')
 st.sidebar.markdown('---')
 page = st.sidebar.radio('Navigate to', ['🏠 Overview', '📦 Amazon — Consumer Purchases', '🛒 UCI — Shopper Behaviour', '📢 Criteo — Campaign Attribution', '🔗 Cross-Dataset Intelligence'])
 st.sidebar.markdown('---')
